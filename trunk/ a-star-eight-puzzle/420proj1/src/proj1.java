@@ -8,25 +8,24 @@ public class proj1 {
 	
 	public static void main(String[] args) {
 		
-		int[] p1d = {0, 2, 4,
-					 6, 8, 1,
-					 3, 5, 7};
 		
-		EightPuzzle start = new EightPuzzle(p1d, 2, 0);
+		int[] p1d = {0, 1, 2, 3, 4, 5, 8, 6, 7};
+		int hueristic = 2;
+		EightPuzzle start = new EightPuzzle(p1d, hueristic, 0);
 		int[] win = { 0, 1, 2,
 					  3, 4, 5,
 					  6, 7, 8};
-		EightPuzzle goal = new EightPuzzle(win, 2, 0);
+		EightPuzzle goal = new EightPuzzle(win, hueristic, 0);
 
-		astar(start, goal, 2);
+		astar(start, goal);
 
 		
 
 	}
 	
-	public static void astar(EightPuzzle start, EightPuzzle goal, int hueristic)
+	public static void astar(EightPuzzle start, EightPuzzle goal)
 	{
-		if(start.inversions(start.puzzle) % 2 == 1)
+		if(start.inversions() % 2 == 1)
 		{
 			System.out.println("Unsolvable");
 			return;
