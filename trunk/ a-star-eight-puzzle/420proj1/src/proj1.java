@@ -8,16 +8,25 @@ public class proj1 {
 	
 	public static void main(String[] args) {
 		
-		int[] p1d = {1, 2, 4, 0, 5, 6, 8, 3, 7};
+		int[] p1d = {4, 1, 2,
+					 3, 6, 5,
+					 0, 7, 8};
 		
 		EightPuzzle start = new EightPuzzle(p1d, 1, 0);
 		int[] win = { 0, 1, 2, 3, 4, 5, 6, 7, 8};
 		EightPuzzle goal = new EightPuzzle(win, 1, 0);
-		astar(start, goal, 1);
-
+		LinkedList <EightPuzzle> test = start.getChildren();
+		System.out.println("Original array: \n" + start.toString());
+		System.out.println("children:");
+		
+		while(!test.isEmpty())
 		{
-			
+			EightPuzzle x = test.removeFirst();
+			System.out.println("size: " + test.size() + "\n" + x.toString());
 		}
+		
+
+		
 
 	}
 	
@@ -25,12 +34,12 @@ public class proj1 {
 	{
 //		function A*(start,goal)
 //	     closedset := the empty set                 // The set of nodes already evaluated. 
-		LinkedList<Node<EightPuzzle>> closedset = new LinkedList<Node<EightPuzzle>>();
+		LinkedList<EightPuzzle> closedset = new LinkedList<EightPuzzle>();
 //	     openset := set containing the initial node // The set of tentative nodes to be evaluated. priority queue
-		PriorityQueue<Node<EightPuzzle>> openset = new PriorityQueue<Node<EightPuzzle>>();
-		Node<EightPuzzle> temp = new Node<EightPuzzle>();
-		temp.setData(start);
-		openset.add(temp);
+		PriorityQueue<EightPuzzle> openset = new PriorityQueue<EightPuzzle>();
+
+		openset.add(start);
+		
 //	     came_from := the empty map                 // The map of navigated nodes.
 //	     g_score[start] := 0                        // Distance from start along optimal path.
 //	     h_score[start] := heuristic_estimate_of_distance(start, goal)
@@ -38,25 +47,26 @@ public class proj1 {
 //	     while openset is not empty
 		while(openset.size() > 0){
 //	         x := the node in openset having the lowest f_score[] value
-			Node<EightPuzzle> x = new Node<EightPuzzle>();
-			x.setData(openset.peek().getData());
+			EightPuzzle x = openset.peek();
+
 //	         if x = goal
-			if(x.getData().equals(goal))
+			if(x.equals(goal))
 			{
 //	             return reconstruct_path(came_from, came_from[goal])
 				 Stack<EightPuzzle> toDisplay = reconstruct(x);
+				 System.out.println("Printing solution... ");
 				 print(toDisplay);
+				 openset.poll();
 				 
 			}
 //	         remove x from openset
 //	         add x to closedset
 			closedset.add(openset.poll());
-			LinkedList <Node<EightPuzzle>> neighbor = x.getData().getChildren();
+			LinkedList <EightPuzzle> neighbor = x.getChildren();
 //	         foreach y in neighbor_nodes(x)			
 			while(neighbor.size() > 0)
 			{
-				Node<EightPuzzle> y = new Node<EightPuzzle>();
-				y.setData(neighbor.removeFirst().getData());
+				EightPuzzle y = neighbor.removeFirst();
 //	             if y in closedset
 				if(closedset.contains(y)){
 //	                 continue
@@ -89,18 +99,19 @@ public class proj1 {
 	{
 		while(!x.isEmpty())
 		{
-			x.pop().toString();
+			EightPuzzle temp = x.pop();
+			System.out.println(temp.toString());
 		}
 	}
 
-	public static Stack<EightPuzzle> reconstruct(Node<EightPuzzle> winner)
+	public static Stack<EightPuzzle> reconstruct(EightPuzzle winner)
 	{
 		Stack<EightPuzzle> correctOutput = new Stack<EightPuzzle>();
 		
-		while(winner.getData().parent != null)
+		while(winner.parent != null)
 		{
-		correctOutput.add(winner.getData());
-		winner.setData(winner.getData().getParent());
+		correctOutput.add(winner);
+		winner = winner.getParent();
 		}
 		
 //	     if came_from[current_node] is set
