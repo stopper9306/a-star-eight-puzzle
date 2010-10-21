@@ -5,6 +5,7 @@ public class Node<T> {
  
     public T data;
     public List<Node<T>> children;
+
  
     /**
      * Default ctor.
