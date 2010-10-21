@@ -9,15 +9,16 @@ public class proj1 {
 	public static void main(String[] args) {
 		
 		
-		int[] p1d = {1, 4, 2, 3, 0, 5, 6, 7, 8};
-		int hueristic = 2;
+		int[] p1d = {0, 2, 4, 6, 8, 1, 3, 5, 7};
+		int hueristic = 1;
 		EightPuzzle start = new EightPuzzle(p1d, hueristic, 0);
 		int[] win = { 0, 1, 2,
 					  3, 4, 5,
 					  6, 7, 8};
 		EightPuzzle goal = new EightPuzzle(win, hueristic, 0);
 //		LinkedList<EightPuzzle> test = start.getChildren();
-//		PriorityQueue<EightPuzzle> hah = new PriorityQueue<EightPuzzle>();
+
+		
 //		while(!test.isEmpty())
 //		{
 //			hah.add(test.pop());	
@@ -33,7 +34,15 @@ public class proj1 {
 		
 
 	}
-	
+	public static boolean contains(Iterator<EightPuzzle> x, EightPuzzle s)
+	{
+		while(x.hasNext())
+		{
+			if(x.next().equals(s))
+			return true;
+		}
+		return false;
+	}
 	public static void astar(EightPuzzle start, EightPuzzle goal)
 	{
 		if(start.inversions() % 2 == 1)
@@ -78,18 +87,25 @@ public class proj1 {
 			{
 				EightPuzzle y = neighbor.removeFirst();
 //	             if y in closedset
-				if(closedset.contains(y)){
+				if(contains(closedset.iterator(), y)){
 //	                 continue
 					continue;
 				}
 //	             tentative_g_score := g_score[x] + dist_between(x,y)
 //	 
 //	             if y not in openset
-				if(!closedset.contains(y)){
+				if(!contains(openset.iterator(), y)){
 //	                 add y to openset
 					openset.add(y);
 //	                 tentative_is_better := true
 				}
+//				if(openset.contains(y)){
+//					Iterator<EightPuzzle> yey = openset.iterator();
+//					while(yey.hasNext())
+//					{
+//						if(yey.next().equals(y))
+//					}
+//				}
 //	             elseif tentative_g_score < g_score[y]
 //	                 tentative_is_better := true
 			}
