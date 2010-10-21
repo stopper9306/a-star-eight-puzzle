@@ -74,127 +74,131 @@ public class EightPuzzle implements Comparable <Object> {
 		} 
 		return gn;
 	}
-	public LinkedList<Node<EightPuzzle>> getChildren()
+	public LinkedList<EightPuzzle> getChildren()
 	{
-		LinkedList<Node<EightPuzzle>> children = new LinkedList<Node<EightPuzzle>>();
+		LinkedList<EightPuzzle> children = new LinkedList<EightPuzzle>();
 		int loc = 0;
-        int temparray[] = new int[puzzle.length];
-		
+        int temparray[] = new int[this.puzzle.length];
+        EightPuzzle rightP, upP, downP, leftP;
 		while(this.puzzle[loc] != 0)
 		{
 			loc++;
 		}
-		
 		if(loc % 3 == 0){
+		System.out.println("swap right");	
 		//add one child that swaps with right
-			for(int x = 0; x < puzzle.length; x++)
+			for(int x = 0; x < this.puzzle.length; x++)
 			{
-				temparray[x] = puzzle[x];
+				temparray[x] = this.puzzle[x];
 			}
 			temparray[loc] = temparray[loc + 1];
 			temparray[loc + 1] = 0;
-			
-			EightPuzzle rightP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			rightP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
 			rightP.setParent(this);
-			Node<EightPuzzle> right = new Node<EightPuzzle>();
-			children.add(right);
+			children.add(rightP);
+		
+			
+
 		}else if(loc % 3 == 1){
+			System.out.println("swap right and left");
 		//add one child swaps with right
-			for(int x = 0; x < puzzle.length; x++)
+			for(int x = 0; x < this.puzzle.length; x++)
 			{
-				temparray[x] = puzzle[x];
+				temparray[x] = this.puzzle[x];
 			}
 			temparray[loc] = temparray[loc + 1];
 			temparray[loc + 1] = 0;
 			
-			EightPuzzle rightP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			rightP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
 			rightP.setParent(this);
-			Node<EightPuzzle> right = new Node<EightPuzzle>();
-			children.add(right);
-		//add one child swaps with left
-			for(int x = 0; x < puzzle.length; x++)
+			children.add(rightP);
+			//add one child swaps with left
+			for(int x = 0; x < this.puzzle.length; x++)
 			{
-				temparray[x] = puzzle[x];
+				temparray[x] = this.puzzle[x];
 			}
 			temparray[loc] = temparray[loc - 1];
 			temparray[loc - 1] = 0;
 			
-			EightPuzzle leftP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			leftP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
 			leftP.setParent(this);
-			Node<EightPuzzle> left = new Node<EightPuzzle>();
-			children.add(left);
-		}else
+			children.add(leftP);
+		}else if(loc % 3 == 2)
 		{
+			System.out.println("swap left");
 		// add one child swaps with left
-			for(int x = 0; x < puzzle.length; x++)
+			for(int x = 0; x < this.puzzle.length; x++)
 			{
-				temparray[x] = puzzle[x];
+				temparray[x] = this.puzzle[x];
 			}
 			temparray[loc] = temparray[loc - 1];
 			temparray[loc - 1] = 0;
 			
-			EightPuzzle leftP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			leftP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
 			leftP.setParent(this);
-			Node<EightPuzzle> left = new Node<EightPuzzle>();
-			children.add(left);
+			children.add(leftP);
 		}
 		
 		if(loc / 3 == 0)
 		{
+			System.out.println("swap lower");
 		//add one child swaps with lower
-			for(int x = 0; x < puzzle.length; x++)
+			for(int x = 0; x < this.puzzle.length; x++)
 			{
-				temparray[x] = puzzle[x];
+				temparray[x] = this.puzzle[x];
 			}
 			temparray[loc] = temparray[loc + 3];
 			temparray[loc + 3] = 0;
 			
-			EightPuzzle downP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			downP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+
 			downP.setParent(this);
-			Node<EightPuzzle> down = new Node<EightPuzzle>();
-			children.add(down);
+
+			children.add(downP);
+		
+			
 		}
 		else if(loc / 3 == 1 )
-		{
+		{System.out.println("swap lower and upper");
 			//add one child, swap with upper
-			for(int x = 0; x < puzzle.length; x++)
+			for(int x = 0; x < this.puzzle.length; x++)
 			{
-				temparray[x] = puzzle[x];
+				temparray[x] = this.puzzle[x];
 			}
 			temparray[loc] = temparray[loc - 3];
 			temparray[loc - 3] = 0;
 			
-			EightPuzzle upP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			upP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
 			upP.setParent(this);
-			Node<EightPuzzle> up = new Node<EightPuzzle>();
-			children.add(up);
+
+			children.add(upP);
 			//add one child, swap with lower
-			for(int x = 0; x < puzzle.length; x++)
+			for(int x = 0; x < this.puzzle.length; x++)
 			{
-				temparray[x] = puzzle[x];
+				temparray[x] = this.puzzle[x];
 			}
 			temparray[loc] = temparray[loc + 3];
 			temparray[loc + 3] = 0;
 			
-			EightPuzzle downP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			downP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
 			downP.setParent(this);
-			Node<EightPuzzle> down = new Node<EightPuzzle>();
-			children.add(down);
+
+			children.add(downP);
 		}
-		else
-		{
-			//add one child, swap with
-			for(int x = 0; x < puzzle.length; x++)
+		else if (loc / 3 == 2 )
+		{System.out.println("swap upper");
+			//add one child, swap with upper
+			for(int x = 0; x < this.puzzle.length; x++)
 			{
-				temparray[x] = puzzle[x];
+				temparray[x] = this.puzzle[x];
 			}
 			temparray[loc] = temparray[loc - 3];
 			temparray[loc - 3] = 0;
 			
-			EightPuzzle upP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			upP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
 			upP.setParent(this);
-			Node<EightPuzzle> up = new Node<EightPuzzle>();
-			children.add(up);
+
+			children.add(upP);
 		}
 	
 				
