@@ -23,6 +23,22 @@ public class EightPuzzle implements Comparable <Object> {
 	{
 		return f_n;
 	}
+	public static boolean solvable(int[] x)
+	{
+		int inversion = 0;
+		for(int i = 0; i < x.length; i++)
+		{
+			for(int j = 0; j < i; j++)
+			{
+				if(x[i] != 0 && x[j] != 0)
+				{
+					if(x[i] < x[j])
+						inversion++;
+				}
+			}
+		}
+		return (inversion % 2 == 0);
+	}
 	public void setParent(EightPuzzle input)
 	{
 		this.parent = input;
@@ -219,25 +235,7 @@ public class EightPuzzle implements Comparable <Object> {
 		}
 		return x;
 	}
-	public static boolean solvable(int[] x)
-	{
-		int inversion = 0;
-		for(int i = 0; i < x.length; i++ )
-		{
-			for(int j = 0; j < i; j++)
-			{
-				if(x[i] != 0 && x[j] != 0)
-				{
-				if(x[i] < x[j])
-					inversion++;
-				}
-			}
-	}
-	
-	return (inversion % 2 == 0);
-	
-}
-public int compareTo(Object input) {
+	public int compareTo(Object input) {
 		
 		
 		if (this.f_n < ((EightPuzzle) input).getF_n())
