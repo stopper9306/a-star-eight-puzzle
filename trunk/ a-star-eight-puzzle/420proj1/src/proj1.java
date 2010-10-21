@@ -9,15 +9,26 @@ public class proj1 {
 	public static void main(String[] args) {
 		
 		
-		int[] p1d = {0, 1, 2, 3, 4, 5, 8, 6, 7};
+		int[] p1d = {4, 1, 2, 3, 5, 0, 8, 6, 7};
 		int hueristic = 2;
 		EightPuzzle start = new EightPuzzle(p1d, hueristic, 0);
 		int[] win = { 0, 1, 2,
 					  3, 4, 5,
 					  6, 7, 8};
 		EightPuzzle goal = new EightPuzzle(win, hueristic, 0);
-
-		astar(start, goal);
+		LinkedList<EightPuzzle> test = start.getChildren();
+		PriorityQueue<EightPuzzle> hah = new PriorityQueue<EightPuzzle>();
+		while(!test.isEmpty())
+		{
+			hah.add(test.pop());	
+		}
+		
+		while(!hah.isEmpty())
+		{
+			System.out.println(hah.peek().h_n +" " + hah.peek().g_n + "<=f of n for => " + hah.poll().toString());
+		}
+		
+		//astar(start, goal);
 
 		
 

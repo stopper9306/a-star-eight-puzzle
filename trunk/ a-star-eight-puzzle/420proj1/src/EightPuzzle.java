@@ -211,14 +211,15 @@ public class EightPuzzle implements Comparable <Object> {
 		
 		
 		if (this.f_n < ((EightPuzzle) input).getF_n())
-			return 1;
-		else if (this.f_n > ((EightPuzzle) input).getF_n())
 			return -1;
+		else if (this.f_n > ((EightPuzzle) input).getF_n())
+			return 1;
 		return 0;
 	}
 	
 	public boolean equals(EightPuzzle test){
-
+		if(this.f_n != test.getF_n())
+			return false;
 		for(int i = 0 ; i < this.puzzle.length; i++)
 		{
 			if(this.puzzle[i] != test.puzzle[i])
