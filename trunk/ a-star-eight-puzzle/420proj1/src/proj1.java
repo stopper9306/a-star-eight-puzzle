@@ -16,23 +16,45 @@ public class proj1 {
 					  3, 4, 5,
 					  6, 7, 8};
 		EightPuzzle goal = new EightPuzzle(win, hueristic, 0);
-//		LinkedList<EightPuzzle> test = start.getChildren();
+		PriorityQueue<EightPuzzle> h1 = new PriorityQueue<EightPuzzle>();
+		PriorityQueue<EightPuzzle> h2 = new PriorityQueue<EightPuzzle>();
+		int[] z = new int[9];
+		for(int i = 0; i < 1;i++)
+		{
+			z = shuffle();
+			h1.add(new EightPuzzle(z, 1, 0));
+			h2.add(new EightPuzzle(z, 2, 0));
+		}
+		System.out.println("|   Steps | \th(n)\t| Openset | Closedset | time(sec) |");
+		while(!h1.isEmpty())
+		{
+		astar(h1.poll(), goal, (long)System.currentTimeMillis()/1000);
+		astar(h2.poll(), goal, (long)System.currentTimeMillis()/1000);
+		}
 
 		
-//		while(!test.isEmpty())
-//		{
-//			hah.add(test.pop());	
-//		}
-//		
-//		while(!hah.isEmpty())
-//		{
-//			System.out.println(hah.peek().h_n +" " + hah.peek().g_n + "<=f of n for => " + hah.poll().toString());
-//		}
-		
-		astar(start, goal);
 
-		
-
+	}
+	
+	
+	public static int[] shuffle()
+	{	
+		Random gen = new Random();
+		int set[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+		boolean con = true;
+		while(con){
+				for(int i = 0; i < set.length; i++ )
+				{
+					int ranPos = gen.nextInt(set.length);
+					int temp = set[i];
+					set[i] = set[ranPos];
+					set[ranPos] = temp;
+				}
+				if(EightPuzzle.solvable(set)){
+				con = false;
+				}
+		}
+		return set;
 	}
 	public static boolean contains(Iterator<EightPuzzle> x, EightPuzzle s)
 	{
@@ -43,7 +65,7 @@ public class proj1 {
 		}
 		return false;
 	}
-	public static void astar(EightPuzzle start, EightPuzzle goal)
+	public static void astar(EightPuzzle start, EightPuzzle goal, long startTime)
 	{
 		if(start.inversions() % 2 == 1)
 		{
@@ -70,11 +92,13 @@ public class proj1 {
 //	         if x = goal
 			if(x.mapEquals(goal))
 			{
+				long endTime = (System.currentTimeMillis() / 1000) - startTime;
 //	             return reconstruct_path(came_from, came_from[goal])
 				 Stack<EightPuzzle> toDisplay = reconstruct(x);
-				 System.out.println("Printing solution... ");
-				 System.out.println(start.toString());
-				 print(toDisplay);
+				 
+				 System.out.print("|\t" + x.getG_n() + "|\t" + x.hueristic_type + "|\t" + openset.size() + " |  " + closedset.size() + "|\t" + endTime +"|\n");
+
+				 //print(toDisplay);
 				 return;
 				 
 			}
@@ -99,13 +123,6 @@ public class proj1 {
 					openset.add(y);
 //	                 tentative_is_better := true
 				}
-//				if(openset.contains(y)){
-//					Iterator<EightPuzzle> yey = openset.iterator();
-//					while(yey.hasNext())
-//					{
-//						if(yey.next().equals(y))
-//					}
-//				}
 //	             elseif tentative_g_score < g_score[y]
 //	                 tentative_is_better := true
 			}
@@ -150,32 +167,5 @@ public class proj1 {
 	
 	}
 	
-	
 
-
-	
-//	public void convert(int[][] adjust)
-//	{
-//		int z = 0;
-//		for(int i = 0; i < 3; i++)
-//		{
-//			for(int j = 0; j < 3; j++)
-//			{
-//				p1d[z++] = adjust[i][j]; 
-//			}
-//		}
-//		
-//	}
-//
-//	public void convert(int[] adjust)
-//	{
-//		int z = 0;
-//		for(int i = 0; i < 3; i++)
-//		{
-//			for(int j = 0; j < 3; j++)
-//			p2d[i][j] = adjust[z++];
-//		}
-//	}
-	
-	
 
