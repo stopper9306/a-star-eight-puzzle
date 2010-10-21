@@ -32,7 +32,7 @@ public class EightPuzzle implements Comparable <Object> {
 		return this.parent;
 	}
 
-	public int inversions(int[] list)
+	public int inversions()
 	{
 		/*
 		 * Definition: For any other configuration besides the goal, 
@@ -40,13 +40,13 @@ public class EightPuzzle implements Comparable <Object> {
 		 * tile with a smaller number, the two tiles are said to be inverted
 		 */
 		int inversion = 0;
-		for(int i = 0; i < list.length; i++ )
+		for(int i = 0; i < this.puzzle.length; i++ )
 		{
 			for(int j = 0; j < i; j++)
 			{
-				if(list[i] != 0 && list[j] != 0)
+				if(this.puzzle[i] != 0 && this.puzzle[j] != 0)
 				{
-				if(list[i] < list[j])
+				if(this.puzzle[i] < this.puzzle[j])
 					inversion++;
 				}
 			}
@@ -211,9 +211,9 @@ public class EightPuzzle implements Comparable <Object> {
 		
 		
 		if (this.f_n < ((EightPuzzle) input).getF_n())
-			return -1;
-		else if (this.f_n > ((EightPuzzle) input).getF_n())
 			return 1;
+		else if (this.f_n > ((EightPuzzle) input).getF_n())
+			return -1;
 		return 0;
 	}
 	
