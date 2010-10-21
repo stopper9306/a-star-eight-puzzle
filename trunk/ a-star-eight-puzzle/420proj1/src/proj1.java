@@ -15,6 +15,10 @@ public class proj1 {
 		EightPuzzle goal = new EightPuzzle(win, 1, 0);
 		astar(start, goal, 1);
 
+		{
+			
+		}
+
 	}
 	
 	public static void astar(EightPuzzle start, EightPuzzle goal, int hueristic)
@@ -34,7 +38,8 @@ public class proj1 {
 //	     while openset is not empty
 		while(openset.size() > 0){
 //	         x := the node in openset having the lowest f_score[] value
-			Node<EightPuzzle> x = openset.peek();
+			Node<EightPuzzle> x = new Node<EightPuzzle>();
+			x.setData(openset.peek().getData());
 //	         if x = goal
 			if(x.getData().equals(goal))
 			{
@@ -50,7 +55,8 @@ public class proj1 {
 //	         foreach y in neighbor_nodes(x)			
 			while(neighbor.size() > 0)
 			{
-				Node<EightPuzzle> y = neighbor.removeFirst();
+				Node<EightPuzzle> y = new Node<EightPuzzle>();
+				y.setData(neighbor.removeFirst().getData());
 //	             if y in closedset
 				if(closedset.contains(y)){
 //	                 continue

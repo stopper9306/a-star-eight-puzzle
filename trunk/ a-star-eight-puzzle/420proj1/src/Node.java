@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node<T> {
+public class Node<T> implements Comparable<Object>{
  
     public T data;
     public List<Node<T>> children;
@@ -117,4 +117,14 @@ public class Node<T> {
         sb.append("]").append("}");
         return sb.toString();
     }
+    @Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		int val = ((EightPuzzle)data).compareTo(((EightPuzzle)((Node<?>)o).getData()));
+		if (val == 0)
+			return 0;
+		else if (val < 0)
+			return 1;
+		return -1;
+	}
 }
