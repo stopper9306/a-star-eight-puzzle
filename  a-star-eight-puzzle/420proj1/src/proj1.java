@@ -8,23 +8,17 @@ public class proj1 {
 	
 	public static void main(String[] args) {
 		
-		int[] p1d = {4, 1, 2,
-					 3, 6, 5,
-					 0, 7, 8};
+		int[] p1d = {0, 2, 4,
+					 6, 8, 1,
+					 3, 5, 7};
 		
-		EightPuzzle start = new EightPuzzle(p1d, 1, 0);
-		int[] win = { 0, 1, 2, 3, 4, 5, 6, 7, 8};
-		EightPuzzle goal = new EightPuzzle(win, 1, 0);
-		LinkedList <EightPuzzle> test = start.getChildren();
-		System.out.println("Original array: \n" + start.toString());
-		System.out.println("children:");
-		
-		while(!test.isEmpty())
-		{
-			EightPuzzle x = test.removeFirst();
-			System.out.println("size: " + test.size() + "\n" + x.toString());
-		}
-		
+		EightPuzzle start = new EightPuzzle(p1d, 2, 0);
+		int[] win = { 0, 1, 2,
+					  3, 4, 5,
+					  6, 7, 8};
+		EightPuzzle goal = new EightPuzzle(win, 2, 0);
+
+		astar(start, goal, 2);
 
 		
 
@@ -32,6 +26,11 @@ public class proj1 {
 	
 	public static void astar(EightPuzzle start, EightPuzzle goal, int hueristic)
 	{
+		if(start.inversions(start.puzzle) % 2 == 1)
+		{
+			System.out.println("Unsolvable");
+			return;
+		}
 //		function A*(start,goal)
 //	     closedset := the empty set                 // The set of nodes already evaluated. 
 		LinkedList<EightPuzzle> closedset = new LinkedList<EightPuzzle>();
@@ -56,7 +55,7 @@ public class proj1 {
 				 Stack<EightPuzzle> toDisplay = reconstruct(x);
 				 System.out.println("Printing solution... ");
 				 print(toDisplay);
-				 openset.poll();
+				 return;
 				 
 			}
 //	         remove x from openset
@@ -108,7 +107,7 @@ public class proj1 {
 	{
 		Stack<EightPuzzle> correctOutput = new Stack<EightPuzzle>();
 		
-		while(winner.parent != null)
+		while(winner.getParent() != null)
 		{
 		correctOutput.add(winner);
 		winner = winner.getParent();
