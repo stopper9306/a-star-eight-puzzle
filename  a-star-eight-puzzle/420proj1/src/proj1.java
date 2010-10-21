@@ -32,6 +32,7 @@ public class proj1 {
 		}else if (generated > 0){
 			for(int i = 0; i < generated;i++)
 			{
+				System.out.println("acquiring " + generated + " solvable-random puzzles between the depths of 2 and 20... (this might take awhile)");
 				z = shuffle();
 				h1.add(new EightPuzzle(z, 1, 0));
 				h2.add(new EightPuzzle(z, 2, 0));
