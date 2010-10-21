@@ -227,5 +227,13 @@ public class EightPuzzle implements Comparable <Object> {
 		}
 		return true;
 	}
+	public boolean mapEquals(EightPuzzle test){
+		for(int i = 0 ; i < this.puzzle.length; i++)
+		{
+			if(this.puzzle[i] != test.puzzle[i])
+				return false;
+		}
+		return true;
+	}
 
 }
