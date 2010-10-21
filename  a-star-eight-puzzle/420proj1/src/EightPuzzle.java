@@ -31,7 +31,19 @@ public class EightPuzzle implements Comparable <Object> {
 	{
 		return this.parent;
 	}
-
+	public int getG_n(){
+		return this.g_n;
+	}
+	public void setG_n(int x)
+	{
+		this.g_n = x;
+		this.update();
+	}
+	public void update()
+	{
+		this.h_n = (this.hueristic_type == 1) ?  h1(this.puzzle) : h2(this.puzzle);
+		this.f_n = h_n + g_n;
+	}
 	public int inversions()
 	{
 		/*
