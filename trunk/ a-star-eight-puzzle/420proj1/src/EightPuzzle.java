@@ -85,124 +85,85 @@ public class EightPuzzle implements Comparable <Object> {
 			loc++;
 		}
 		if(loc % 3 == 0){
-		System.out.println("swap right");	
-		//add one child that swaps with right
-			for(int x = 0; x < this.puzzle.length; x++)
-			{
-				temparray[x] = this.puzzle[x];
-			}
+			temparray = this.puzzle.clone();
 			temparray[loc] = temparray[loc + 1];
 			temparray[loc + 1] = 0;
-			rightP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			rightP = new EightPuzzle(temparray, this.hueristic_type, this.g_n + 1);
 			rightP.setParent(this);
 			children.add(rightP);
-		
-			
 
 		}else if(loc % 3 == 1){
-			System.out.println("swap right and left");
 		//add one child swaps with right
-			for(int x = 0; x < this.puzzle.length; x++)
-			{
-				temparray[x] = this.puzzle[x];
-			}
+			temparray = this.puzzle.clone();
 			temparray[loc] = temparray[loc + 1];
 			temparray[loc + 1] = 0;
 			
-			rightP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			rightP = new EightPuzzle(temparray, this.hueristic_type, this.g_n + 1);
 			rightP.setParent(this);
 			children.add(rightP);
 			//add one child swaps with left
-			for(int x = 0; x < this.puzzle.length; x++)
-			{
-				temparray[x] = this.puzzle[x];
-			}
+			temparray = this.puzzle.clone();
 			temparray[loc] = temparray[loc - 1];
 			temparray[loc - 1] = 0;
 			
-			leftP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			leftP = new EightPuzzle(temparray, this.hueristic_type, this.g_n + 1);
 			leftP.setParent(this);
 			children.add(leftP);
-		}else if(loc % 3 == 2)
-		{
-			System.out.println("swap left");
+		}else if(loc % 3 == 2){
 		// add one child swaps with left
-			for(int x = 0; x < this.puzzle.length; x++)
-			{
-				temparray[x] = this.puzzle[x];
-			}
+			temparray = this.puzzle.clone();
 			temparray[loc] = temparray[loc - 1];
 			temparray[loc - 1] = 0;
 			
-			leftP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			leftP = new EightPuzzle(temparray, this.hueristic_type, this.g_n + 1);
 			leftP.setParent(this);
 			children.add(leftP);
-		}
+		}		
 		
-		if(loc / 3 == 0)
-		{
-			System.out.println("swap lower");
+		if(loc / 3 == 0){
 		//add one child swaps with lower
-			for(int x = 0; x < this.puzzle.length; x++)
-			{
-				temparray[x] = this.puzzle[x];
-			}
+			temparray = this.puzzle.clone();
 			temparray[loc] = temparray[loc + 3];
 			temparray[loc + 3] = 0;
 			
-			downP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			downP = new EightPuzzle(temparray, this.hueristic_type, this.g_n + 1);
 
 			downP.setParent(this);
 
 			children.add(downP);
 		
 			
-		}
-		else if(loc / 3 == 1 )
-		{System.out.println("swap lower and upper");
+		}else if(loc / 3 == 1 ){
 			//add one child, swap with upper
-			for(int x = 0; x < this.puzzle.length; x++)
-			{
-				temparray[x] = this.puzzle[x];
-			}
+			temparray = this.puzzle.clone();
 			temparray[loc] = temparray[loc - 3];
 			temparray[loc - 3] = 0;
 			
-			upP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			upP = new EightPuzzle(temparray, this.hueristic_type, this.g_n + 1);
 			upP.setParent(this);
 
 			children.add(upP);
 			//add one child, swap with lower
-			for(int x = 0; x < this.puzzle.length; x++)
-			{
-				temparray[x] = this.puzzle[x];
-			}
+			temparray = this.puzzle.clone();
 			temparray[loc] = temparray[loc + 3];
 			temparray[loc + 3] = 0;
 			
-			downP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			downP = new EightPuzzle(temparray, this.hueristic_type, this.g_n + 1);
 			downP.setParent(this);
 
 			children.add(downP);
-		}
-		else if (loc / 3 == 2 )
-		{System.out.println("swap upper");
+		}else if (loc / 3 == 2 ){
 			//add one child, swap with upper
-			for(int x = 0; x < this.puzzle.length; x++)
-			{
-				temparray[x] = this.puzzle[x];
-			}
+			temparray = this.puzzle.clone();
 			temparray[loc] = temparray[loc - 3];
 			temparray[loc - 3] = 0;
 			
-			upP = new EightPuzzle(temparray, this.hueristic_type, this.g_n);
+			upP = new EightPuzzle(temparray, this.hueristic_type, this.g_n + 1);
 			upP.setParent(this);
 
 			children.add(upP);
 		}
-	
-				
-		
+
 		return children;
 	}
 	public int h2(int[] list)
@@ -250,9 +211,9 @@ public class EightPuzzle implements Comparable <Object> {
 		
 		
 		if (this.f_n < ((EightPuzzle) input).getF_n())
-			return 1;
-		else if (this.f_n > ((EightPuzzle) input).getF_n())
 			return -1;
+		else if (this.f_n > ((EightPuzzle) input).getF_n())
+			return 1;
 		return 0;
 	}
 	
