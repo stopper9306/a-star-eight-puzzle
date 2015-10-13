@@ -1,0 +1,1 @@
+Java project implementing the a-star search algorithm to solve the 8 piece puzzle
